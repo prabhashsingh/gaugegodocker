@@ -1,10 +1,11 @@
-FROM java:8-jre
+FROM java:8-jdk
 
 MAINTAINER Adriano Bonat <adrianob@gmail.com>
 
 ENV GOCD_VERSION=16.5.0-3305
 ENV GOCD_SERVER_SHA1=58b648a0483c6e3edd624e2ccc8563c10cc6bbd6
 ENV GOCD_SERVER_URL=https://download.go.cd/binaries/${GOCD_VERSION}/deb/go-server-${GOCD_VERSION}.deb
+RUN  apt-get update; apt-get install -y git maven
 
 RUN set -x \
  # Download/Install/Cleanup Go Server
@@ -25,7 +26,7 @@ COPY set-agent-key.sh /
 VOLUME /var/lib/go-server /etc/go /var/go
 
 # Start script requires JAVA_HOME to be specified
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+# ENV JAVA_HOME="/usr/lib/jvm/open-jdk"
 
 # Default Go Server HTTP and HTTPS ports
 EXPOSE 8153 8154

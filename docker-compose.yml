@@ -6,6 +6,8 @@ goserver:
 
 goagent:
   build: gocd-agent
+  volumes:
+    - /Users/atmaramn/.m2:/root/.m2
   links:
     - goserver
   environment:
